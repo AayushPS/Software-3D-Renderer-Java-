@@ -1,76 +1,93 @@
-# Software 3D Renderer in Java
+# Software 3D Renderer (Java)
 
-This project is a small software-rendering engine written in Java and displayed with Swing. It renders 3D triangles on the CPU without OpenGL or DirectX, using custom transforms, projection, shading, and depth testing.
+A CPU-based 3D graphics pipeline implemented from scratch.
+
+## Features
+
+- Triangle rasterization
+- Barycentric interpolation
+- Z-buffer depth testing
+- Per-pixel lighting
+- Procedural icosphere mesh generation
+- Matrix-based vertex rotation
+- Perspective projection
+- Swing-based interactive viewer
+- Alternate sphere and wireframe paths present in code/comments
+
+## Pipeline
+
+`Vertex transformation`
+→ `Triangle rasterization`
+→ `Barycentric interpolation`
+→ `Depth testing using Z-buffer`
+→ `Pixel shading`
+
+## Current Display
+
+- Window title: `Demo Viewer`
+- Bottom slider controls horizontal rotation
+- Right slider controls vertical rotation
+- Default app path currently displays a coloured tetrahedron
+- Sphere-generation and wireframe-related paths are also present in the codebase and reflected in the captured recordings
+
+## Codebase Details
+
+- [`src/main/java/org/Aayush/Core/SliderUtil.java`](./src/main/java/org/Aayush/Core/SliderUtil.java): XZ and YZ rotation transforms using 3x3 matrices
+- [`src/main/java/org/Aayush/Core/Matrix3.java`](./src/main/java/org/Aayush/Core/Matrix3.java): matrix multiplication and vertex transform support
+- [`src/main/java/org/Aayush/Rasterization/Rasterizer.java`](./src/main/java/org/Aayush/Rasterization/Rasterizer.java): perspective projection, barycentric triangle fill, z-buffering, interpolated normals, and per-pixel lighting
+- [`src/main/java/org/Aayush/Rasterization/Shader.java`](./src/main/java/org/Aayush/Rasterization/Shader.java): normalization, cross products, vertex-colour generation, and gamma-aware shade helper
+- [`src/main/java/org/Aayush/Runner/MulticolourSphere.java`](./src/main/java/org/Aayush/Runner/MulticolourSphere.java): icosahedron creation plus repeated inflation toward an icosphere
+- [`src/main/java/org/Aayush/Runner/Drawer.java`](./src/main/java/org/Aayush/Runner/Drawer.java): active tetrahedron scene, commented sphere render path, and commented wireframe path
+- [`src/main/java/org/Aayush/Runner/DemoViewer.java`](./src/main/java/org/Aayush/Runner/DemoViewer.java): Swing viewer and interactive slider controls
 
 ## Screen Captures
 
-The README previews below are converted from the recordings in [`ScreenCpatures`](./ScreenCpatures).
+All GIFs below were generated from the recordings in [`ScreenCpatures`](./ScreenCpatures).
 
-### Current demo view
+### Capture 1
 
-![Tetrahedron demo](./ScreenCpatures/gifs/tetrahedron-demo.gif)
+![Capture 1](./ScreenCpatures/gifs/screencast-from-2026-03-03-18-44-05.gif)
 
-### Additional renderer outputs captured during development
+### Capture 2
 
-![Gradient sphere](./ScreenCpatures/gifs/gradient-sphere.gif)
-![Patterned sphere](./ScreenCpatures/gifs/patterned-sphere.gif)
+![Capture 2](./ScreenCpatures/gifs/screencast-from-2026-03-03-18-45-31.gif)
 
-## What the Project Currently Shows
+### Capture 3
 
-- A Swing window titled `Demo Viewer`
-- A horizontal slider for heading rotation
-- A vertical slider for pitch rotation
-- A software-rendered coloured tetrahedron
-- Black background render surface
-- Continuous redraw when sliders move
+![Capture 3](./ScreenCpatures/gifs/screencast-from-2026-03-07-19-48-23.gif)
 
-## Renderer Features Present in the Codebase
+### Capture 4
 
-- Custom 3x3 matrix-based rotation transforms in [`src/main/java/org/Aayush/Core/SliderUtil.java`](./src/main/java/org/Aayush/Core/SliderUtil.java)
-- Perspective projection using a configurable camera distance in [`src/main/java/org/Aayush/Rasterization/Rasterizer.java`](./src/main/java/org/Aayush/Rasterization/Rasterizer.java)
-- Triangle rasterization using barycentric coordinates
-- Z-buffer depth testing for hidden-surface removal
-- Per-pixel directional lighting with ambient light
-- Interpolated normals for smooth shading across a triangle
-- Vertex-position-based RGB colour generation
-- Utility methods for vector normalization and cross products in [`src/main/java/org/Aayush/Rasterization/Shader.java`](./src/main/java/org/Aayush/Rasterization/Shader.java)
-- A gamma-aware shading helper function (`getShade`) included in the shader utilities
-- Procedural icosahedron generation in [`src/main/java/org/Aayush/Runner/MulticolourSphere.java`](./src/main/java/org/Aayush/Runner/MulticolourSphere.java)
-- Repeated mesh inflation to approximate a smoother sphere
-- Support for multiple inflation levels, including the commented `second level` and `third level` progression in the source
-- A commented wireframe drawing path in [`src/main/java/org/Aayush/Runner/Drawer.java`](./src/main/java/org/Aayush/Runner/Drawer.java)
-- A commented alternate draw path for rendering the generated sphere instead of the tetrahedron
+![Capture 4](./ScreenCpatures/gifs/screencast-from-2026-03-07-20-21-24.gif)
 
-## Project Structure
+### Capture 5
 
-- [`src/main/java/org/Aayush/App.java`](./src/main/java/org/Aayush/App.java): entrypoint
-- [`src/main/java/org/Aayush/Runner/DemoViewer.java`](./src/main/java/org/Aayush/Runner/DemoViewer.java): Swing UI and sliders
-- [`src/main/java/org/Aayush/Runner/Drawer.java`](./src/main/java/org/Aayush/Runner/Drawer.java): scene draw loop
-- [`src/main/java/org/Aayush/Runner/MulticolourSphere.java`](./src/main/java/org/Aayush/Runner/MulticolourSphere.java): procedural sphere generation
-- [`src/main/java/org/Aayush/Core`](./src/main/java/org/Aayush/Core): matrix, vertex, and triangle primitives
-- [`src/main/java/org/Aayush/Rasterization`](./src/main/java/org/Aayush/Rasterization): rasterizer and shader helpers
+![Capture 5](./ScreenCpatures/gifs/screencast-from-2026-03-07-20-23-33.gif)
 
-## Build and Run
+### Capture 6
+
+![Capture 6](./ScreenCpatures/gifs/screencast-from-2026-03-07-23-39-12.gif)
+
+### Capture 7
+
+![Capture 7](./ScreenCpatures/gifs/screencast-from-2026-03-08-18-03-16.gif)
+
+## Build And Run
 
 ### Requirements
 
 - Java 8 or newer
 - Maven
 
-### Run the application
+### Run
 
 ```bash
 mvn compile
 mvn exec:java -Dexec.mainClass=org.Aayush.App
 ```
 
-### Run tests
+### Test
 
 ```bash
 mvn test
 ```
-
-## Notes
-
-- The default `App -> DemoViewer -> Drawer` path currently renders the tetrahedron scene.
-- The sphere generation and alternate wireframe-related logic are present in the code and are reflected in the included development recordings.
